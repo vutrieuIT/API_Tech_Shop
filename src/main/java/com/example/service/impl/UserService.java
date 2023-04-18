@@ -26,4 +26,14 @@ public class UserService implements IUserService {
             return null;
         }
     }
+
+    @Override
+    public UserDTO login(String username, String password) {
+        UserEntity entity = userRepository.findByUserNameAndPassword(username, password);
+        if (entity == null){
+            return null;
+        } else {
+            return userConverter.toDTO(entity);
+        }
+    }
 }

@@ -50,6 +50,13 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public List<ProductProjection> getPopularProduct(List<Long> ids) {
+        return productRepository.findAllById(ids)
+                .stream().map(ProductProjection::from)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ProductProjection getDetailProduct(Long id) {
         ProductEntity entity = productRepository.findById(id).orElse(null);
         return ProductProjection.from(entity);

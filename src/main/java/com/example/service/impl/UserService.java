@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.constant.Constant;
 import com.example.converter.UserConverter;
 import com.example.dto.UserDTO;
 import com.example.entity.UserEntity;
@@ -7,10 +8,20 @@ import com.example.repository.UserRepository;
 import com.example.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
 
+    private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -34,6 +45,36 @@ public class UserService implements IUserService {
             return null;
         } else {
             return userConverter.toDTO(entity);
+        }
+    }
+
+    @Override
+    public UserDTO updateAvatar(Long id, MultipartFile avatar, HttpServletRequest request) throws IOException {
+        Path staticPath = Paths.get("static");
+        Path imagePath = Paths.get("images");
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+        }
+
+        UserEntity entity = userRepository.findById(id).get();
+        if(entity != null){
+            //random file name
+            String originalFilename = avatar.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String fileName = id +"_" + UUID.randomUUID().toString().substring(0,10) + extension;
+            //đường dân trên server
+            Path file = CURRENT_FOLDER.resolve(staticPath)
+                    .resolve(imagePath).resolve(fileName);
+            // ghi file
+            try (OutputStream os = Files.newOutputStream(file)) {
+                os.write(avatar.getBytes());
+            }
+            // set url của ảnh
+            entity.setAvatar(Constant.LOCALHOST+imagePath.resolve(fileName));
+            userRepository.save(entity);
+            return userConverter.toDTO(entity);
+        } else {
+            return null;
         }
     }
 }

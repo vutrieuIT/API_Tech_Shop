@@ -2,7 +2,9 @@ package com.example.converter;
 
 import com.example.dto.CategoryDTO;
 import com.example.entity.CategoryEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoryConverter {
     public CategoryDTO toDTO(CategoryEntity entity){
         CategoryDTO dto = new CategoryDTO();

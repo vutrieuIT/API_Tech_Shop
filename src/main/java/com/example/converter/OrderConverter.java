@@ -2,7 +2,9 @@ package com.example.converter;
 
 import com.example.dto.OrderDTO;
 import com.example.entity.OrderEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderConverter {
 
     public OrderDTO toDTO(OrderEntity entity){

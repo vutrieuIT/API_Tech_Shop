@@ -2,7 +2,9 @@ package com.example.converter;
 
 import com.example.dto.UserDTO;
 import com.example.entity.UserEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserConverter {
 
     public UserDTO toDTO(UserEntity entity){

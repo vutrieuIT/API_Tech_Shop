@@ -2,7 +2,9 @@ package com.example.converter;
 
 import com.example.dto.ProductDTO;
 import com.example.entity.ProductEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductConverter {
 
     public ProductDTO toDTO(ProductEntity entity){

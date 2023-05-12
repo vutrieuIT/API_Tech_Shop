@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.constant.Constant;
 import com.example.converter.UserConverter;
+import com.example.dto.Response;
 import com.example.dto.UserDTO;
 import com.example.entity.UserEntity;
 import com.example.repository.UserRepository;
@@ -27,24 +28,30 @@ public class UserService implements IUserService {
     @Autowired
     private UserConverter userConverter;
     @Override
-    public UserDTO register(UserDTO dto) {
+    public Response<UserDTO> register(UserDTO dto) {
         UserEntity entity = userRepository.findByUserName(dto.getUserName());
+        Response response = new Response<>();
         if (entity == null){
             entity = userRepository.save(userConverter.toEntity(dto));
             dto = userConverter.toDTO(entity);
-            return dto;
+            response.setData(dto);
+            return response;
         } else {
-            return null;
+            response.setMessage("tên đăng nhập đã tồn tại");
+            return response;
         }
     }
 
     @Override
-    public UserDTO login(String username, String password) {
+    public Response<UserDTO> login(String username, String password) {
         UserEntity entity = userRepository.findByUserNameAndPassword(username, password);
+        Response response = new Response<UserDTO>();
         if (entity == null){
-            return null;
+            response.setMessage("tài khoản, hoặc mật khẩu không đúng");
+            return response;
         } else {
-            return userConverter.toDTO(entity);
+            response.setData(userConverter.toDTO(entity));
+            return response;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.api;
 
+import com.example.dto.Response;
 import com.example.dto.UserDTO;
 import com.example.projection.ProductProjection;
 import com.example.service.impl.OrderService;
@@ -32,13 +33,13 @@ public class UserApi {
     private ResourceLoader resourceLoader;
 
     @PostMapping("register")
-    public UserDTO register(@ModelAttribute UserDTO dto) {
+    public Response register(@ModelAttribute UserDTO dto) {
         return userService.register(dto);
     }
 
     @PostMapping("/login")
-    public UserDTO login(@RequestParam("userName") String username,
-                         @RequestParam("password") String password) {
+    public Response login(@RequestParam("userName") String username,
+                          @RequestParam("password") String password) {
         return userService.login(username, password);
     }
 

@@ -5,6 +5,7 @@ import com.example.dto.ProductDTO;
 import com.example.entity.ProductEntity;
 import com.example.projection.ProductProjection;
 import com.example.repository.ProductRepository;
+import com.example.service.IOrderService;
 import com.example.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class ProductService implements IProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private IOrderService orderService;
 
     @Autowired
     private ProductConverter productConverter;
@@ -50,10 +54,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductProjection> getPopularProduct(List<Long> ids) {
-        return productRepository.findAllById(ids)
-                .stream().map(ProductProjection::from)
-                .collect(Collectors.toList());
+    public List<ProductProjection> getPopularProduct(int n) {
+        List<Long> ids = orderService.findTopProduct(100);
+        List<ProductProjection> res = new ArrayList<>();
+        for (Long id : ids){
+            ProductEntity entity = productRepository.getReferenceById(id);
+            res.add(ProductProjection.from(entity));
+        }
+        return res;
     }
 
     @Override

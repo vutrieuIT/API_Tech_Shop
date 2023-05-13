@@ -37,7 +37,7 @@ public class ProductApi {
 
     @GetMapping("/popular")
     public List<ProductProjection> getPopularProduct(){
-        List<Long> ids = orderService.findTopProduct(3);
-        return productService.getPopularProduct(ids);
+        List<Long> ids = orderService.findTopProduct(100);
+        return productService.getPopularProduct(100);
     }
 }

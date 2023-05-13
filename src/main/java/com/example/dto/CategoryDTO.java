@@ -11,6 +11,7 @@ public class CategoryDTO {
     private Long id;
     private String code;
     private String name;
+    private String image;
     private List<ProductEntity> products;
 
     public Long getId() {
@@ -35,6 +36,14 @@ public class CategoryDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public List<ProductEntity> getProducts() {

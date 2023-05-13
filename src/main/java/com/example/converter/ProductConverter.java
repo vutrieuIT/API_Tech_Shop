@@ -12,6 +12,7 @@ public class ProductConverter {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setGia(entity.getGia());
+        dto.setImage(entity.getImage());
         dto.setSoLuong(entity.getSoLuong());
         dto.setMoTa(entity.getMoTa());
         return dto;
@@ -21,6 +22,7 @@ public class ProductConverter {
         ProductEntity entity = new ProductEntity();
         entity.setName(dto.getName());
         entity.setGia(dto.getGia());
+        entity.setImage(dto.getImage());
         entity.setSoLuong(dto.getSoLuong());
         entity.setMoTa(dto.getMoTa());
         return entity;
@@ -28,6 +30,7 @@ public class ProductConverter {
     public ProductEntity toEntity(ProductEntity entity, ProductDTO dto){
         entity.setName(dto.getName());
         entity.setGia(dto.getGia());
+        entity.setImage(dto.getImage());
         entity.setSoLuong(dto.getSoLuong());
         entity.setMoTa(dto.getMoTa());
         return entity;

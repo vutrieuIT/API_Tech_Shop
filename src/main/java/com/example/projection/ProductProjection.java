@@ -30,6 +30,8 @@ public interface ProductProjection {
                 return entity.getGia();
             }
 
+            public String getImage(){return entity.getImage();}
+
             @Override
             public int getSoLuong() {
                 return entity.getSoLuong();

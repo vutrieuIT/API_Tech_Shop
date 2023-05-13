@@ -11,6 +11,8 @@ public class ProductDTO {
     private Long id;
     private String name;
     private String gia;
+
+    private String image;
     private int soLuong;
     private String moTa;
     private List<OrderEntity> orders = new ArrayList<>();
@@ -38,6 +40,14 @@ public class ProductDTO {
 
     public void setGia(String gia) {
         this.gia = gia;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getSoLuong() {

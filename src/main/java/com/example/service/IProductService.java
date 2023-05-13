@@ -13,7 +13,7 @@ public interface IProductService {
 
     List<ProductProjection> getAll();
 
-    List<ProductProjection> getPopularProduct(List<Long> ids);
+    List<ProductProjection> getPopularProduct(int n);
 
     ProductProjection getDetailProduct(Long id);
 

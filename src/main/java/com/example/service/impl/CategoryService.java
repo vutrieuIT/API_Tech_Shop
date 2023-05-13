@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.converter.CategoryConverter;
 import com.example.dto.CategoryDTO;
+import com.example.dto.Response;
 import com.example.entity.CategoryEntity;
 import com.example.repository.CategoryRepository;
 import com.example.service.ICategoryService;
@@ -21,12 +22,14 @@ public class CategoryService implements ICategoryService {
     @Autowired
     private CategoryConverter categoryConverter;
     @Override
-    public List<CategoryDTO> getAll() {
+    public Response<List<CategoryDTO>> getAll() {
         List<CategoryEntity> categoryEntities = categoryRepository.findAll();
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
         for (CategoryEntity e: categoryEntities) {
             categoryDTOS.add(categoryConverter.toDTO(e));
         }
-        return categoryDTOS;
+        Response response = new Response<>();
+        response.setData(categoryDTOS);
+        return response;
     }
 }

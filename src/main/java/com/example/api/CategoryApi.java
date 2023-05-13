@@ -1,6 +1,7 @@
 package com.example.api;
 
 import com.example.dto.CategoryDTO;
+import com.example.dto.Response;
 import com.example.service.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class CategoryApi {
     @Autowired
     private CategoryService categoryService;
     @GetMapping
-    public List<CategoryDTO> getAll(){
+    public Response<List<CategoryDTO>> getAll(){
         return categoryService.getAll();
     }
 }

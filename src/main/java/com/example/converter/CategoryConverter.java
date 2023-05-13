@@ -11,6 +11,7 @@ public class CategoryConverter {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setCode(entity.getCode());
+        dto.setImage(entity.getImage());
         return dto;
     }
 
@@ -18,6 +19,7 @@ public class CategoryConverter {
         CategoryEntity entity = new CategoryEntity();
         entity.setCode(dto.getCode());
         entity.setName(dto.getName());
+        entity.setImage(dto.getImage());
         return entity;
     }
 

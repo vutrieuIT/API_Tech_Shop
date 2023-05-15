@@ -22,11 +22,13 @@ public class ProductApi {
     private OrderService orderService;
 
     @GetMapping("")
-    public List<ProductProjection> getProduct(@RequestParam(required = false) Long category_id) {
+    public List<ProductProjection> getProduct(@RequestParam(required = false) Long category_id,
+                                              @RequestParam(defaultValue = "0") int pageNumber,
+                                              @RequestParam(defaultValue = "10") int pageSize) {
         if (category_id != null){
-            return productService.getAllByCategoryId(category_id);
+            return productService.getAllByCategoryId(category_id, pageNumber, pageSize);
         } else {
-            return productService.getAll();
+            return productService.getAll(pageNumber, pageSize);
         }
     }
 

@@ -8,6 +8,9 @@ import com.example.repository.ProductRepository;
 import com.example.service.IOrderService;
 import com.example.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,8 +40,9 @@ public class ProductService implements IProductService {
 //    }
 
     @Override
-    public List<ProductProjection> getAllByCategoryId(Long id) {
-        List<ProductEntity> entities = productRepository.findAllByCategoryId(id);
+    public List<ProductProjection> getAllByCategoryId(Long id, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<ProductEntity> entities = productRepository.findAllByCategoryId(id, pageable);
         return entities.stream()
                 .map(ProductProjection::from)
                         .collect(Collectors.toList());
@@ -46,8 +50,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductProjection> getAll() {
-        List<ProductEntity> entities = productRepository.findAll();
+    public List<ProductProjection> getAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductEntity> entities = productRepository.findAll(pageable);
         return entities.stream()
                 .map(ProductProjection::from)
                 .collect(Collectors.toList());

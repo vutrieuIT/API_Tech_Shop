@@ -9,9 +9,9 @@ import java.util.List;
 public interface IProductService {
 
 //    List<ProductDTO> getAllByCategoryId(Long id);
-    List<ProductProjection> getAllByCategoryId(Long id);
+    List<ProductProjection> getAllByCategoryId(Long id, int page, int size);
 
-    List<ProductProjection> getAll();
+    List<ProductProjection> getAll(int page, int size);
 
     List<ProductProjection> getPopularProduct(int n);
 

@@ -12,39 +12,45 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private UserEntity user_id;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    private ProductEntity product_id;
 
     // so luong dat hang
     @Column(name = "quantity")
     private Integer quantity;
+
+    @Column(name="total_money")
+    private Integer total_money;
 
     @Column(name = "status")
     private Boolean status = false;
     // constructors, getters, setters
 
 
+    public OrderEntity() {
+    }
+
     public Long getId() {
         return id;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getUser_id() {
+        return user_id;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUser_id(UserEntity user_id) {
+        this.user_id = user_id;
     }
 
-    public ProductEntity getProduct() {
-        return product;
+    public ProductEntity getProduct_id() {
+        return product_id;
     }
 
-    public void setProduct(ProductEntity product) {
-        this.product = product;
+    public void setProduct_id(ProductEntity product_id) {
+        this.product_id = product_id;
     }
 
     public Integer getQuantity() {
@@ -53,6 +59,14 @@ public class OrderEntity {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getTotal_money() {
+        return total_money;
+    }
+
+    public void setTotal_money(Integer total_money) {
+        this.total_money = total_money;
     }
 
     public Boolean getStatus() {

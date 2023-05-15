@@ -1,22 +1,24 @@
 package com.example.api;
 
-import com.example.service.IOrderService;
+import com.example.entity.ProductEntity;
+import com.example.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 @SpringBootTest
 class ApiApplicationTests {
 
     @Autowired
-    private IOrderService orderService;
+    private ProductRepository productRepository;
     @Test
     void contextLoads() {
-        List<Long> ids = orderService.findTopProduct(10);
-        for (Long id : ids){
-            System.out.println(id);
+        Pageable pageable = PageRequest.of(0,2);
+        Page<ProductEntity> productEntities = productRepository.findAll(pageable);
+        for (ProductEntity e: productEntities){
+            System.out.println(e.getId());
         }
     }
 

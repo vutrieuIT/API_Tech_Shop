@@ -77,7 +77,8 @@ public class UserService implements IUserService {
                 os.write(avatar.getBytes());
             }
             // set url của ảnh
-            entity.setAvatar(Constant.LOCALHOST+imagePath.resolve(fileName));
+            String urlImage = Constant.LOCALHOST + imagePath + "/" + fileName;
+            entity.setAvatar(urlImage);
             userRepository.save(entity);
             return userConverter.toDTO(entity);
         } else {

@@ -1,10 +1,18 @@
 package com.example.service.impl;
 
+import com.example.dto.Order1;
+import com.example.dto.UserOrder;
 import com.example.entity.OrderEntity;
+import com.example.entity.ProductEntity;
+import com.example.entity.UserEntity;
 import com.example.projection.ProductPopularProjection;
 import com.example.projection.ProductProjection;
 import com.example.repository.OrderRepository;
+import com.example.repository.ProductRepository;
+import com.example.repository.UserRepository;
 import com.example.service.IOrderService;
+import com.example.service.IProductService;
+import com.example.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +27,12 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
     @Override
     public List<Long> findTopProduct(int n) {
         Pageable pageable = PageRequest.of(0, n);
@@ -33,11 +47,25 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<ProductProjection> getOrderByUserId(Long user_id) {
-        List<OrderEntity> entities = orderRepository.findProductByUserIdAndStatusIsFalse(user_id);
+        List<OrderEntity> entities = orderRepository.findProductByUserId(user_id);
         List<ProductProjection> products = entities.stream()
                 .map(this::orderEntityToProductProjection)
                 .collect(Collectors.toList());
         return products;
+    }
+
+    @Override
+    public void saveOrder(UserOrder userOrder) {
+        UserEntity userEntity = userRepository.findById(userOrder.getUser_id()).get();
+        for (Order1 order1 : userOrder.getOrders()){
+            ProductEntity product = productRepository.findById(order1.getProduct_id()).get();
+            OrderEntity orderEntity = new OrderEntity();
+            orderEntity.setUser(userEntity);
+            orderEntity.setProduct(product);
+            orderEntity.setQuantity(order1.getQuantity());
+            orderEntity.setTotal_money(order1.getTotal_money());
+            orderRepository.save(orderEntity);
+        }
     }
 
     private ProductProjection orderEntityToProductProjection(OrderEntity entity){

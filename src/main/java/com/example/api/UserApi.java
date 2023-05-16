@@ -1,21 +1,20 @@
 package com.example.api;
 
+import com.example.dto.Order1;
 import com.example.dto.Response;
 import com.example.dto.UserDTO;
+import com.example.dto.UserOrder;
 import com.example.projection.ProductProjection;
 import com.example.service.impl.OrderService;
 import com.example.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -28,9 +27,6 @@ public class UserApi {
 
     @Autowired
     private OrderService orderService;
-
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     @PostMapping("register")
     public Response register(@ModelAttribute UserDTO dto) {
@@ -53,5 +49,13 @@ public class UserApi {
                                 @RequestParam("avatar") MultipartFile avatar,
                                 HttpServletRequest request) throws IOException {
         return userService.updateAvatar(id, avatar, request);
+    }
+
+    @PostMapping(value = "/order")
+    public ResponseEntity<String> order(@RequestBody UserOrder userOrder){
+        if(userOrder != null){
+            orderService.saveOrder(userOrder);
+        }
+        return ResponseEntity.ok("Data received successfully");
     }
 }

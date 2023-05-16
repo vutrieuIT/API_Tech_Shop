@@ -13,5 +13,5 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "FROM OrderEntity o GROUP BY o.product.id " +
             "ORDER BY totalQuantity DESC")
     List<ProductPopularProjection> findTopProducts(Pageable pageable);
-    List<OrderEntity> findProductByUserIdAndStatusIsFalse(Long id);
+    List<OrderEntity> findProductByUserId(Long id);
 }

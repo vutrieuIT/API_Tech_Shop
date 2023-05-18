@@ -12,5 +12,5 @@ public interface IOrderService {
     List<OrderProjection> getOrderByUserId(Long user_id);
     void saveOrder(UserOrder userOrder);
 
-    void deleteOrder(Long orderId);
+    void deleteOrder(List<Long> orderId);
 }

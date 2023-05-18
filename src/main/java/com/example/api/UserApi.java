@@ -60,8 +60,8 @@ public class UserApi {
         return ResponseEntity.ok("Data received successfully");
     }
 
-    @DeleteMapping("/order/{orderId}")
-    public ResponseEntity<String> deleteOrder(@PathVariable("orderId") Long orderId){
+    @PostMapping("/order/delete")
+    public ResponseEntity<String> deleteOrder(@RequestBody List<Long> orderId){
         orderService.deleteOrder(orderId);
         return ResponseEntity.ok("đã xóa đơn hàng");
     }

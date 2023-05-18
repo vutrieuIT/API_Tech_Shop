@@ -70,8 +70,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void deleteOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
+    public void deleteOrder(List<Long> orderId) {
+        for(Long id : orderId){
+            orderRepository.deleteById(id);
+        }
+
     }
 
     private ProductProjection orderEntityToProductProjection(OrderEntity entity){

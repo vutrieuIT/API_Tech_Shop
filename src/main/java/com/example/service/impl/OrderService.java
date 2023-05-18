@@ -5,6 +5,7 @@ import com.example.dto.UserOrder;
 import com.example.entity.OrderEntity;
 import com.example.entity.ProductEntity;
 import com.example.entity.UserEntity;
+import com.example.projection.OrderProjection;
 import com.example.projection.ProductPopularProjection;
 import com.example.projection.ProductProjection;
 import com.example.repository.OrderRepository;
@@ -46,12 +47,12 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<ProductProjection> getOrderByUserId(Long user_id) {
+    public List<OrderProjection> getOrderByUserId(Long user_id) {
         List<OrderEntity> entities = orderRepository.findProductByUserId(user_id);
-        List<ProductProjection> products = entities.stream()
-                .map(this::orderEntityToProductProjection)
+        List<OrderProjection> orders = entities.stream()
+                .map(OrderProjection::from)
                 .collect(Collectors.toList());
-        return products;
+        return orders;
     }
 
     @Override
@@ -66,6 +67,11 @@ public class OrderService implements IOrderService {
             orderEntity.setTotal_money(order1.getTotal_money());
             orderRepository.save(orderEntity);
         }
+    }
+
+    @Override
+    public void deleteOrder(Long orderId) {
+        orderRepository.deleteById(orderId);
     }
 
     private ProductProjection orderEntityToProductProjection(OrderEntity entity){
@@ -92,6 +98,16 @@ public class OrderService implements IOrderService {
 
             @Override
             public String getMoTa() {
+                return null;
+            }
+
+            @Override
+            public Integer getTotalMoney() {
+                return entity.getTotal_money();
+            }
+
+            @Override
+            public String getImage() {
                 return null;
             }
 

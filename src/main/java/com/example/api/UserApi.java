@@ -4,6 +4,7 @@ import com.example.dto.Order1;
 import com.example.dto.Response;
 import com.example.dto.UserDTO;
 import com.example.dto.UserOrder;
+import com.example.projection.OrderProjection;
 import com.example.projection.ProductProjection;
 import com.example.service.impl.OrderService;
 import com.example.service.impl.UserService;
@@ -39,8 +40,8 @@ public class UserApi {
         return userService.login(username, password);
     }
 
-    @PostMapping("/{id}/order")
-    public List<ProductProjection> getOrder(@PathVariable("id") Long id) {
+    @GetMapping("/{id}/order")
+    public List<OrderProjection> getOrder(@PathVariable("id") Long id) {
         return orderService.getOrderByUserId(id);
     }
 
@@ -57,5 +58,11 @@ public class UserApi {
             orderService.saveOrder(userOrder);
         }
         return ResponseEntity.ok("Data received successfully");
+    }
+
+    @DeleteMapping("/order/{orderId}")
+    public ResponseEntity<String> deleteOrder(@PathVariable("orderId") Long orderId){
+        orderService.deleteOrder(orderId);
+        return ResponseEntity.ok("đã xóa đơn hàng");
     }
 }

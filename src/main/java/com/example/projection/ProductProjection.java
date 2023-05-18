@@ -9,6 +9,9 @@ public interface ProductProjection {
     int getSoLuong();
     String getMoTa();
 
+    Integer getTotalMoney();
+
+    String getImage();
     int getQuantity();
     Long getCategoryId();
 
@@ -40,6 +43,11 @@ public interface ProductProjection {
             @Override
             public String getMoTa() {
                 return entity.getMoTa();
+            }
+
+            @Override
+            public Integer getTotalMoney() {
+                return null;
             }
 
             @Override

@@ -50,6 +50,8 @@ public class UserService implements IUserService {
             response.setMessage("tài khoản, hoặc mật khẩu không đúng");
             return response;
         } else {
+            String url = Constant.LOCALHOST + entity.getAvatar();
+            entity.setAvatar(url);
             response.setData(userConverter.toDTO(entity));
             return response;
         }
@@ -78,8 +80,9 @@ public class UserService implements IUserService {
             }
             // set url của ảnh
             String urlImage = Constant.LOCALHOST + imagePath + "/" + fileName;
-            entity.setAvatar(urlImage);
+            entity.setAvatar(imagePath + "/" + fileName);
             userRepository.save(entity);
+            entity.setAvatar(urlImage);
             return userConverter.toDTO(entity);
         } else {
             return null;

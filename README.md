@@ -1,5 +1,5 @@
 # API_Tech_Shop
-là Server service cho dự án Android bán đồ điện tử [TechApp](https://github.com/vutrieuIT/TechApp), xấy dựng trên IDE __InteliJ Ultimate For Student__
+là Server service cho dự án Android bán đồ điện tử [TechApp](https://github.com/vutrieuIT/TechApp), xấy dựng trên IDE __InteliJ__
 # Tính Năng
 1. Đăng nhập, đăng ký
 2. xem sản phẩm

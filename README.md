@@ -6,7 +6,7 @@ là Server service cho dự án Android bán đồ điện tử [TechApp](https:
 3. tìm sản phẩm theo tên, danh mục
 4. thêm vào giỏ hàng, đặt hàng
 # Cài Đặt
-1. Tải và cài đặt InteliJ Ultimate từ trang chủ: [InteliJ Ultimate For Student](https://www.jetbrains.com/idea/download).
+1. Tải và cài đặt InteliJ Ultimate từ trang chủ: [InteliJ Ultimate](https://www.jetbrains.com/idea/download).
 2. đăng ký license, làm theo hướng dẫn sau: [license InteliJ Ultimate for Student](https://www.jetbrains.com/shop/eform/students).
 3. Sao chép repository về máy tính của bạn bằng cách sử dụng Git hoặc tải repository dưới dạng file ZIP và giải nén.
 - Sử dụng Git:
